@@ -1,0 +1,482 @@
+#STEP 1 - MAKES INDIVIDUAL GENOTYPE FILES
+
+import re
+file="path/to/directory/output.vars.vcf " #<--change for each VCF file
+vcf=open(file, "r")
+sample="Sample#" #<--change for each sample number
+
+ref_list=[]
+marker_list=[]
+alt1_list=[] 
+alt2_list=[]
+
+gen_list=[]
+num=["0","1","2","3","4","5","6","7","8","9","10"] 
+marker_dict={}
+pain_marker_dict={}
+
+
+
+path=” path/to/directory"
+
+alt_parts_list=[]
+file_parts=file.split("/")
+file_name=file_parts[9]
+new_file_name_parts=file_name.split("vars")
+new_file_name=new_file_name_parts[0]
+file_name_parts=file_name.split("_")
+
+sample_name=file_name_parts[0]
+perm_file_name=path+new_file_name+"fixed_genotype.txt"
+#print(perm_file_name)
+
+out_fh=open(perm_file_name,"w")
+
+counter_list=[]
+ctr=0
+for line in vcf:
+
+    line=line.strip("\n")
+
+    if line.startswith("#"):
+        continue
+    else:
+        parts=line.split("\t")
+        ctr+=1
+        counter_list.append(ctr)
+        
+        
+        
+        
+        #print(parts)
+        #print(parts[9])
+        geno_parts=parts[9]
+        #print(geno_parts)
+        geno_parts=geno_parts.split(":")
+        #print(geno_parts)
+        geno_parts=geno_parts[0]
+        #print(geno_parts)
+        geno=geno_parts.split("/")
+        #print(geno)
+        plain_marker=parts[0]+"_"+parts[1]
+        #print(plain_marker)
+        pain_marker_dict[plain_marker]=geno
+        
+        marker=parts[0]+"_"+parts[1]+","+parts[3]+","+parts[4]
+        #print(marker)
+        marker=marker.split(",")
+        #print(marker)
+        marker_list.append(marker)
+        
+#print(len(counter_list))
+#print(pain_marker_dict)
+
+
+        
+sample_rep=[sample] * len(counter_list)
+#print(sample_rep)
+
+alt_len1=[]
+for x1 in marker_list:
+            if len(x1)==3:
+                #print(x1)
+                x1.append("h")
+                x1.append("h")
+                x1.append("h")
+                x1.append("h")
+                x1.append("h")
+                x1.append("h")
+                x1.append("h")
+                x1.append("h")
+                #print(x1)
+                alt_len1.append(x1)
+#print(len(alt_len1))
+#print(alt_len)
+
+for x2 in marker_list:
+            if len(x2)==4:
+                #print(x)
+                x2.append("h")
+                x2.append("h")
+                x2.append("h")
+                x2.append("h")
+                x2.append("h")
+                x2.append("h")
+                x2.append("h")
+                #print(x2)
+                alt_len1.append(x2)
+#print(len(alt_len1))
+#print(alt_len)
+
+for x3 in marker_list:
+            if len(x3)==5:
+                #print(x3)
+                x3.append("h")
+                x3.append("h")
+                x3.append("h")
+                x3.append("h")
+                x3.append("h")
+                x3.append("h")
+                #print(x3)
+                alt_len1.append(x3)
+#print(len(alt_len1))
+#print(alt_len)
+
+for x4 in marker_list:
+            if len(x4)==6:
+                #print(x4)
+                x4.append("h")
+                x4.append("h")
+                x4.append("h")
+                x4.append("h")
+                x4.append("h")
+                alt_len1.append(x4)
+                
+for x5 in marker_list:
+            if len(x5)==7:
+                #print(x5)
+                x5.append("h")
+                x5.append("h")
+                x5.append("h")
+                x5.append("h")
+                alt_len1.append(x5) 
+                
+for x6 in marker_list:
+            if len(x6)==8:
+                #print(x6)
+                x6.append("h")
+                x6.append("h")
+                x6.append("h")
+                alt_len1.append(x6) 
+                
+for x7 in marker_list:
+            if len(x7)==9:
+                x7.append("h")
+                x7.append("h")
+                alt_len1.append(x7) 
+                
+for x8 in marker_list:
+            if len(x8)==10:
+                x8.append("h")
+                print(x8)
+                alt_len1.append(x8)  
+                
+for x9 in marker_list:
+            if len(x9)==11:
+                #print(x9)
+                alt_len1.append(x9) 
+                
+                
+#print(len(alt_len))
+#print(alt_len1)
+
+#print(alt_len)
+gen_dict1={}
+gen_dict2={}
+gen_dict3={}
+gen_dict4={}
+gen_dict5={}
+gen_dict11={}
+gen_dict12={}
+gen_dict15={}
+gen_dict17={}
+gen_dict19={}
+
+geno_dict_list1=[]
+geno_dict_list2=[]
+geno_dict_list3=[]
+geno_dict_list4=[]
+geno_dict_list5=[]
+geno_dict_list11=[]
+geno_dict_list12=[]
+geno_dict_list15=[]
+geno_dict_list17=[]
+geno_dict_list19=[]
+
+
+
+marker_dict_list=[]
+
+for allele in alt_len1:
+    #print(allele)
+    marker_dict["marker"]=allele[0]
+    marker_dict_list.append(dict(marker_dict))
+    
+    
+    gen_dict1[num[0]]=allele[1]
+    #print(gen_dict)
+    geno_dict_list1.append(dict(gen_dict1))
+#print(geno_dict_list)
+#print(marker_dict_list)
+    gen_dict2[num[1]]=allele[2]
+    geno_dict_list2.append(dict(gen_dict2))
+    
+    gen_dict3[num[2]]=allele[3]
+    geno_dict_list3.append(dict(gen_dict3))
+    
+    gen_dict4[num[3]]=allele[4]
+    geno_dict_list4.append(dict(gen_dict4))
+    
+    gen_dict5[num[4]]=allele[5]
+    geno_dict_list5.append(dict(gen_dict5))
+    
+    gen_dict11[num[5]]=allele[6]
+    geno_dict_list11.append(dict(gen_dict11))
+    
+    gen_dict12[num[6]]=allele[7]
+    geno_dict_list12.append(dict(gen_dict12))
+    
+    gen_dict15[num[7]]=allele[8]
+    geno_dict_list15.append(dict(gen_dict15))
+    
+    gen_dict17[num[8]]=allele[9]
+    geno_dict_list17.append(dict(gen_dict17))
+    
+    gen_dict19[num[9]]=allele[10]
+    geno_dict_list19.append(dict(gen_dict19))
+    
+    
+combine_list1 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list1)]
+#print(combine_list1)
+combine_list2 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list2)]
+#print(combine_list2)
+combine_list3 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list3)]
+
+combine_list4 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list4)]
+
+combine_list5 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list5)]
+#print(combine_list6)
+
+combine_list11 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list11)]
+#print(combine_list6)
+
+combine_list12 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list12)]
+#print(combine_list6)
+
+combine_list15 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list15)]
+#print(combine_list6)
+
+combine_list17 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list17)]
+#print(combine_list6)
+
+combine_list19 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list19)]
+#print(combine_list6)
+
+master_list=[]
+master_list.extend(combine_list1)
+master_list.extend(combine_list2)
+#print(master_list)
+master_list.extend(combine_list3)
+master_list.extend(combine_list4)
+master_list.extend(combine_list5)
+master_list.extend(combine_list11)
+master_list.extend(combine_list12)
+master_list.extend(combine_list15)
+master_list.extend(combine_list17)
+master_list.extend(combine_list19)
+
+
+#print(master_list)
+
+d = {}
+for s in master_list:
+    d.setdefault(s['marker'], {}).update(s)
+new_dict = {k: [d[k].get(i, i) for i in l] for k, l in pain_marker_dict.items()}
+#print(new_dict)
+
+#print(marker_dict_list)
+
+gen_dict6={}
+gen_dict7={}
+gen_dict8={}
+gen_dict9={}
+gen_dict10={}
+gen_dict13={}
+gen_dict14={}
+gen_dict16={}
+gen_dict18={}
+gen_dict20={}
+
+geno_dict_list6=[]
+geno_dict_list7=[]
+geno_dict_list8=[]
+geno_dict_list9=[]
+geno_dict_list10=[]
+geno_dict_list13=[]
+geno_dict_list14=[]
+geno_dict_list16=[]
+geno_dict_list18=[]
+geno_dict_list20=[]
+
+
+for allele in alt_len1:
+        
+    gen_dict6[num[0]]=allele[1]
+    #print(gen_dict)
+    geno_dict_list6.append(dict(gen_dict6))
+#print(geno_dict_list)
+#print(marker_dict_list)
+    gen_dict7[num[1]]=allele[1]
+    geno_dict_list7.append(dict(gen_dict7))
+    
+    gen_dict8[num[2]]=allele[1]
+    geno_dict_list8.append(dict(gen_dict8))
+    
+    gen_dict9[num[3]]=allele[1]
+    geno_dict_list9.append(dict(gen_dict9))
+    
+    gen_dict10[num[4]]=allele[1]
+    geno_dict_list10.append(dict(gen_dict10))
+    
+    gen_dict13[num[5]]=allele[1]
+    geno_dict_list13.append(dict(gen_dict13))
+    
+    gen_dict14[num[6]]=allele[1]
+    geno_dict_list14.append(dict(gen_dict14))
+
+    gen_dict16[num[7]]=allele[1]
+    geno_dict_list16.append(dict(gen_dict16))
+    
+    gen_dict18[num[8]]=allele[1]
+    geno_dict_list18.append(dict(gen_dict18))
+    
+    gen_dict20[num[9]]=allele[1]
+    geno_dict_list20.append(dict(gen_dict20))
+    
+combine_list6 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list6)]
+#print(combine_list1)
+combine_list7 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list7)]
+#print(combine_list2)
+combine_list8 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list8)]
+
+combine_list9 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list9)]
+
+combine_list10 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list10)]
+#print(combine_list6)
+
+combine_list13 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list13)]
+
+combine_list14 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list14)]
+
+combine_list16 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list16)]
+
+combine_list18 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list18)]
+
+combine_list20 = [{**geno, **marker} for geno, marker in zip(marker_dict_list,geno_dict_list20)]
+
+master_list2=[]
+master_list2.extend(combine_list6)
+master_list2.extend(combine_list7)
+#print(master_list2)
+master_list2.extend(combine_list8)
+master_list2.extend(combine_list9)
+master_list2.extend(combine_list10)
+master_list2.extend(combine_list13)
+master_list2.extend(combine_list14)
+master_list2.extend(combine_list16)
+master_list2.extend(combine_list18)
+master_list2.extend(combine_list20)
+
+d2 = {}
+for s in master_list2:
+    d2.setdefault(s['marker'], {}).update(s)
+new_dict2 = {k: [d2[k].get(i, i) for i in l] for k, l in pain_marker_dict.items()}
+#print(new_dict2)
+
+#print(new_dict)
+
+print("Sample"+"\t"+"Marker"+"\t"+"Reference Genotype"+"\t"+"Sample Genotype"+"\n")
+out_fh.write("Sample"+"\t"+"Marker"+"\t"+"Reference Genotype"+"\t"+"Sample Genotype"+"\n")
+for sample, (k1,ref), (k2,geno) in zip(sample_rep, new_dict2.items(),new_dict.items()):
+    #print(sample)
+    #print(k1,k2,ref,geno)
+    ref='/'.join(ref)
+    #print(ref)
+    geno='/'.join(geno)
+    #print(geno)
+    #v1='/'.join(v1)
+    #print(sample+"\t"+k1+"\t"+ref+"\t"+geno+"\n")
+    out_fh.write(sample+"\t"+k1+"\t"+ref+"\t"+geno+"\n")
+
+#STEP 2 - FIND ALL THE CHROMOSOMES, START AND STOP POSITIONS FOR ALL MARKERS IN THE MASTER GENOTYPE FILE. 
+
+import re
+file="/Users/mandiedriskill/Desktop/USDA/blackberry_VCF_files/all_genotype_files/Hillquist/Hillquist_genotype_master_file.tsv"
+master=open(file, "r")
+
+out_fh=open("master_bed_file.bed","w")
+
+#print(mastiier)
+for line in master:
+    if line.startswith("M"):
+        continue
+    else:
+        line=line.strip("\n")
+        #print(line)
+        parts=line.split("\t")
+        #print(parts)
+        marker=parts[0]
+        #print(marker)
+        marker_parts=marker.split("_")
+        #print(marker_parts)
+        chrom=marker_parts[0]
+        #print(chrom)
+        pos=marker_parts[1]
+        #print(pos)
+        start=int(pos)-2
+        #print(start)
+        stop=int(pos)+2
+        #print(stop)
+        
+        #print(chrom+"\t"+str(start)+"\t"+str(stop))
+        out_fh.write(chrom+"\t"+str(start)+"\t"+str(stop)+"\n")        
+        
+
+#STEP 3 – MAKE MASTER GENOTYPE TABLE
+
+import re
+import collections
+
+file="/Users/mandiedriskill/Desktop/USDA/blackberry_VCF_files/all_genotype_files/Hillquist/masterfile.txt"
+out_file="/Users/mandiedriskill/Desktop/USDA/blackberry_VCF_files/all_genotype_files/Hillquist/geno_numbers.txt"
+
+
+listnum=[]
+pos_dict={}
+geno_list=[]
+marker_list=[]
+
+filelist = open(file, 'r')
+out_f=open(out_file,"w")
+
+master_marker_list=[]
+ref_allele_list=[]
+
+ctr=0
+dict_entries={}
+for file in filelist:
+    ctr+=1
+    file=file.strip("\n")
+    
+    f=open(file, 'r')
+    for file_line in f:
+        #print(file_line)
+        if file_line.startswith("S"):
+            continue
+        else:
+            file_line=file_line.strip("\n")
+            parts=file_line.split("\t")
+            #print(parts)
+            sample=parts[0]
+            marker=parts[1]
+            marker_list.append(marker)
+            ref_genotype=parts[2]
+            #print(ref_genotype)
+            ref_genotype_parts=ref_genotype.split("/")
+            ref_allele=ref_genotype_parts[0]
+            #print(ref_allele)
+            ref_allele_list.append(ref_allele)
+            sample_genotype=parts[3]
+            geno_list.append(sample_genotype)
+            listnum.append(ctr)
+#print(listnum)
