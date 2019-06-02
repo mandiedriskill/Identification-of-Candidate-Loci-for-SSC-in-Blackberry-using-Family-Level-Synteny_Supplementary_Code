@@ -1,0 +1,14 @@
+Minimap2
+
+minimap2 -ax map-pb ref.fasta sample.fasta > output.sam
+
+Samtool
+
+samtools view -S -b output.sam > output.bam
+samtools sort output.bam > sorted_output.bam
+samtools index sorted_output.bam
+
+Freebayes
+
+freebayes -f ref.fasta sorted_output.bam --ploidy # | vcffilter -f "QUAL > 20" > output.vars.vcf
+
